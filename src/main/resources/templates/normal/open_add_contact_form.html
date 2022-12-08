@@ -1,0 +1,175 @@
+<!-- Add contact Page: user can add contact by using this page  -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+    <style>
+        .form-error {
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: .875em;
+            color: #dc3545;
+}
+    </style>    
+</head>
+
+<body>
+    <section>
+        <div class="card mt-0" >
+            <div class="card-body">
+                <h1 class="text-center">Add Contact</h1>
+                <div class="container-fluid mt-1">
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1">
+                            <form th:action=@{/user/addingcontact} method="post" th:object="${contact}" enctype="multipart/form-data"
+                                class="mt-2">
+                                <!-- <label class="sr-only" for="inlineFormInputGroup">Username</label> -->
+                                <!-- Name  -->
+                                <div class="input-group mb-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fa fa-plus"></i>
+                                        </div>
+                                    </div>
+                                    <input 
+                                    type="text" 
+                                    required
+                                    name="contName"
+                                    th:field="*{contName}"
+                                    class="form-control" 
+                                    id="inlineFormInputGroup"
+                                    placeholder="Username">
+
+                                    <div class="container">
+                                        <div class="form-error" th:if="${#fields.hasErrors('contName')}" th:errors="*{contName}" style="color:red ;"></div>
+                                    </div>
+                                    <!-- <div class="invalid-feedback" th:if="${#fields.hasErrors('contName')}" th:errors="*{contName}"></div> -->
+                                    <!-- <div class="invalid-feedback" th:if="${#fields.hasErrors('contName')}">
+                                        <p th:errors="*{contName}" ></p>
+                                      </div> -->
+
+                                </div>
+
+                                <!--Second Name  -->
+                                <div class="input-group mb-2 mt-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-user-alt"></i>
+                                        </div>
+                                    </div>
+                                    <input 
+                                    required
+                                    type="text" 
+                                    name="contSecondName" 
+                                    class="form-control"
+                                    id="inlineFormInputGroup"
+                                    placeholder="Username">
+                                </div>
+
+                                <!--Contact Work  -->
+                                <div class="input-group mb-2 mt-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-user-alt"></i>
+                                        </div>
+                                    </div>
+                                    <input 
+                                    type="text" 
+                                    required
+                                    name="contWork" 
+                                    class="form-control" 
+                                    id="inlineFormInputGroup"
+                                    placeholder="Contact Work">
+                                </div>
+
+                                <!--Contact Email  -->
+                                <div class="input-group mb-2 mt-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-user-alt"></i>
+                                        </div>
+                                    </div>
+                                    <input 
+                                    type="email" 
+                                    required
+                                    name="contEmail" 
+                                    th:field="*{contEmail}"
+                                    class="form-control" 
+                                    id="inlineFormInputGroup"
+                                    placeholder="Contact Email">
+                                    <!-- <div class="invalid-feedback" th:if="${#fields.hasErrors('contEmail')}" th:errors="*{contEmail}"></div> -->
+                                    <div class="container">
+                                        <div class="form-error" th:if="${#fields.hasErrors('contEmail')}" th:errors="*{contEmail}" style="color:red ;"></div>
+                                    </div>
+
+                                </div>
+
+                                <!--Contact Phone  -->
+                                <div class="input-group mb-2 mt-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-user-alt"></i>
+                                        </div>
+                                    </div>
+                                    <input 
+                                    type="text" 
+                                    required
+                                    min="9"
+                                    
+                                    name="contPhone" 
+                                    th:field="*{contPhone}"
+                                    class="form-control" 
+                                    id="inlineFormInputGroup"
+                                    placeholder="Contact-Phone no">
+                                    <div class="container">
+                                        <div class="form-error" th:if="${#fields.hasErrors('contPhone')}" th:errors="*{contPhone}" style="color:red ;"></div>
+                                    </div>
+                                    <!-- <div class="invalid-feedback" th:if="${#fields.hasErrors('contPhone')}" th:errors="*{contPhone}"></div> -->
+                                </div>
+
+                                <!-- contact -Area field -->
+                                <div class="form-group">
+                                   <!--  <label for="exampleFormControlTextarea1">Enter Description</label>
+                                    private String contDesc; -->
+                                    <textarea 
+                                    class="form-control"
+                                    name="contDesc"
+                                     row="20" 
+                                     id="mytextarea"
+                                    rows="3" 
+                                    placeholder="Enter Contact Description"></textarea>
+                                </div>
+                                
+                                <!-- upload files  -->
+                                <div class="custom-file">
+                                <input 
+                                type="file" 
+                                name="contssImage"  
+                                value="default-value">
+                                </div>
+                                
+                                <div class="container text-center">
+                                	<button 
+                                    type="submit" 
+                                    class="btn btn-outline-primary">Save Contact</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>
+             tinymce.init({
+             selector: '#mytextarea'
+            });
+        </script>
+    </section>
+</body>
+
+</html>

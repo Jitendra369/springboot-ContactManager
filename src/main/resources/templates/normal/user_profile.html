@@ -1,0 +1,87 @@
+<!-- show Contact : this page used to show All contacts  -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+    <style>
+        .form-error {
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: .875em;
+            color: #dc3545;
+        }
+
+        .my_profile_page {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="card mr-3 ml-3">
+            <div class="card-body" th:if="${user}">
+                <div class="container text-center">
+                    <img src="" height="200px" width="200px" th:src="@{'/images/'+${user.userImageUrl}}"
+                        alt="profile photo" style="border-radius: 60%;" />
+                    <h3 class="mt-3"><span th:text="${user.userName}"></span></h3>
+                </div>
+
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">#ID</th>
+                            <th scope="col" th:text="${user.userID}"></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                        <tr>
+                            <th scope="row">Email</th>
+                            <td th:text="${user.userEmail}">Jacob</td>
+
+                        <tr>
+                            <th scope="row">Role</th>
+                            <td th:text="${user.userRole}">Mark</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row">userStatus</th>
+                            <td th:text="${user.userStatus}">Mark</td>
+                        </tr>
+
+                        <!-- <tr>
+                            <th scope="row">About User</th>
+                            <td th:text="${user.userDesc}">Mark</td>
+                        </tr> -->
+
+                        
+                        <!-- <td th:text="${contacts.contDesc}" >Mark</td> -->
+                    </tbody>
+                </table>
+
+                <!-- user description section -->
+                <div class="container">
+                    <h3>User Description</h3>
+                    <div class="row">
+                        <th:block th:utext="${user.userDesc}"></th:block>
+                    </div>
+                </div>
+            </div>
+
+            <!-- unless block  -->
+            <div th:unless="${user}" class="mt-3 pt-3 pl-3">
+                <h2>Aunthorized User to see this contact Information</h2>
+                <p> You don't haver any contact information having ID ,<strong th:text="${userid}"></strong> </p>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
