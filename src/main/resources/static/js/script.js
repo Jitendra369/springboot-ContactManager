@@ -1,29 +1,30 @@
+const search =()=>{
+    console.log("searching....")
+    // let id = document.getElementByID('searchid');
+    let search_box = $("#searchid").val();
 
-// alert("hell");
-const naviBar= () =>{
-    alert("sidetogglerbar() function");
-    if ($(".siderbar").is(":visible")) {
-        console.log($(".siderbar").is(":visible"));
-        
-        $(".sidebar").css("display","none");
-        $(".content").css("margin-left","0%");
+    if (search_box=="") {
+        $(".search-result").hide();
+
     }else{
-        console.log($(".siderbar").is(":visible"));
-        
-        $(".sidebar").css("display","block");
-        $(".content").css("margin-left","20%");
+        console.log(search_box);
+
+        let url =`http://localhost:8080/search/${search_box}`;
+        fetch(url)
+        .then((response)=>{
+            return response.json();
+        })
+        .then((data)=>{
+            console.log(data);
+            let element = `<div class='list-group'>`;
+
+            data.forEach(contact => {
+                element+=`<a href='/user/user_contact/${contact.contID}' class='list-group-item list-group-action'>${contact.contName}</a>`
+            });
+            element+=`</div>`;
+            $(".search-result").html(element);
+        });
+
+        $(".search-result").show();
     }
 }
-
-// const toggle=() =>{
-//     let sidebar = document.getElementById("sidebar");
-//     let content = document.getElementById("content");
-//     if (sidebar.style.display ==="none") {
-//         sidebar.style.display ="block";
-//         content.style.marginLeft = "0%";
-        
-//     }else{
-//         sidebar.style.display ="none";
-//         content.style.marginLeft = "20%";
-//     }
-// }

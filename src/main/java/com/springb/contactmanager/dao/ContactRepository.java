@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.springb.contactmanager.entity.Contact;
+import com.springb.contactmanager.entity.User;
 
 public interface ContactRepository extends JpaRepository<Contact, Integer>{
 
@@ -18,6 +19,9 @@ public interface ContactRepository extends JpaRepository<Contact, Integer>{
 	
 	@Query("from Contact as c where c.user.userID =:userID ")
 	public Page<Contact> findContactByUserId(@Param("userID") int userID, Pageable pageable);
+	
+//	search contact in user contacts
+	public List<Contact> findByContNameContainingAndUser(String keyword, User user);
     
     
 }

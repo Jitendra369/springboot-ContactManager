@@ -13,6 +13,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "contact")
 public class Contact {
@@ -43,6 +45,7 @@ public class Contact {
     private String contDesc;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     public Contact() {
