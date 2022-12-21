@@ -39,7 +39,8 @@ public class EmailService {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 System.out.println("use valid Gmail password");
-                return new PasswordAuthentication("testmyemailapi3@gmail.com","fnyvwoicqsffjioh");
+                System.out.println("Enter your password");
+                return new PasswordAuthentication("testmyemailapi3@gmail.com","$$$$$$$");
             }
         });
         session.setDebug(true);
