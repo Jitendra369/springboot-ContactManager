@@ -20,6 +20,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,6 +43,9 @@ import com.springb.contactmanager.helper.Message;
 @Controller
 @RequestMapping(path = "/user")
 public class UserController {
+	
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     UserRepository userRepository;
@@ -311,6 +315,42 @@ public class UserController {
         User user  = this.userRepository.getUserByUserName(principal.getName());
         model.addAttribute("user", user);
         return "normal/user_profile";
+    }
+    
+    @GetMapping("/setting")
+    public String openSetting() {
+    	return "normal/setting";
+    }
+    
+    @PostMapping("/change_password")
+    public String changePassword(@RequestParam("oldpassword") String oldPass,
+    		@RequestParam("newpassword") String newPass,
+    		Principal principle,
+    		HttpSession session) {
+    	
+    	System.out.println(oldPass+" : "+ newPass);
+    	String username = principle.getName();
+    	User user = this.userRepository.getUserByUserName(username);
+    	
+//    	if (this.bCryptPasswordEncoder.encode(oldPass).equals(user.getPassword())) {
+//			user.setPassword(this.bCryptPasswordEncoder.encode(newPass));
+//			this.userRepository.save(user);
+//		}else {
+////			old password is not matched
+//		}
+    	
+    	if (this.bCryptPasswordEncoder.matches(oldPass, user.getPassword())) {
+			user.setPassword(this.bCryptPasswordEncoder.encode(newPass));
+			this.userRepository.save(user);
+			session.setAttribute("message", new Message("your password is saved","success"));
+		}else {
+			session.setAttribute("message", new Message("your old password is not matched","alert-error"));
+		}
+    	
+    	
+    	
+    	
+    	return "redirect:/user/index";
     }
 
 }

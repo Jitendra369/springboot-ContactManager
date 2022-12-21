@@ -30,6 +30,8 @@
                             <p th:text="${session.message.content}"></p>
                             <th:block th:text="${#session.removeAttribute('message')}" ></th:block>
                           </div>
+                          
+                         
 
                         <h1 class="text-center">Register Here</h1>
                         <form action="" th:action="@{/do_register}" method="post" th:object="${user}">

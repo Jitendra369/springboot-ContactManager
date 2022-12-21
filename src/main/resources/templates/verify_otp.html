@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<!-- this is base page template, inside we load other section -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Page</title>
+</head>
+<body>
+	<section>
+		<div id="login">
+
+			<div class="container">
+				<div id="login-row"
+					class="row justify-content-center align-items-center">
+					<div id="login-column" class="col-md-6">
+						<div id="login-box" class="col-md-12">
+							<div class="alert alert-success mt-3 " role="alert">We have sent
+								Email to Your Email..</div>
+
+							<div>
+								<form th:action="@{/verify_otp}" method="post">
+									<div class="from-group text-center ">
+										<input 
+											required
+											placeholder="Enter OTP" 
+											type="number"
+											name="otp"
+											class="form-control">
+										<button type="submit"  class="btn btn-danger mt-3">Verify OTP</button>
+									</div>
+
+								</form>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		>
+
+	</section>
+</body>
+</html>
